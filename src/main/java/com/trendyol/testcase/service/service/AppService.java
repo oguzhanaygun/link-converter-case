@@ -9,13 +9,13 @@ public class AppService {
 
 	public Response convertToDeepLink(String url) {
 		Response response = new Response();
-		response.getMessages();
+		response.setLink("test deeplink");
 		return response;
 	}
 	
 	public Response convertToUrl(String link) {
 		Response response = new Response();
-		response.getMessages();
+		response.setLink("test url");
 		return response;
 	}
 
