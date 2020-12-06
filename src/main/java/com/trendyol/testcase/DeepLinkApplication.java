@@ -15,11 +15,6 @@ public class DeepLinkApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DeepLinkApplication.class, args);
-		 try {
-	            throw new RuntimeException("some error");
-	        } catch (RuntimeException e) {
-	            logger.error("test",e);
-	        }
 	}
 
 }
