@@ -7,10 +7,11 @@ services:
       - "80:80"
     env_file:
       - .env
+    links: 
+      - mysqldb:mysqldb
     depends_on:
       - mysqldb
   mysqldb:
-    container_name: mysql_db
     image: mysql:8.0.17
     ports:
       - "3306:3306"
@@ -19,5 +20,9 @@ services:
     volumes:
       - ./db/CreateTable.sql:/docker-entrypoint-initdb.d/CreateTable.sql
       - db_volume:/var/lib/mysql
+  admin:    
+    image: adminer    
+    ports:      
+      - "8080:8080"
 volumes:
   db_volume:

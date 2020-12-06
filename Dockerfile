@@ -14,5 +14,5 @@ FROM openjdk:8-jre-alpine3.9
 # copy only the artifacts we need from the first stage and discard the rest
 COPY --from=MAVEN_BUILD /build/target/*.jar /app.jar
 EXPOSE 80
-ENV CLASSPATH ${CLASSPATH}:/tmp/sqljdbc_7.4/enu/mssql-jdbc-7.4.1.jre8.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=test", "/app.jar"]
