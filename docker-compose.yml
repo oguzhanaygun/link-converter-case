@@ -1,0 +1,23 @@
+version: "3"
+services:
+  deeplinking:
+    container_name: deepLink_app
+    build: .
+    ports:
+      - "80:80"
+    env_file:
+      - .env
+    depends_on:
+      - mysqldb
+  mysqldb:
+    container_name: mysql_db
+    image: mysql:8.0.17
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env
+    volumes:
+      - ./db/CreateTable.sql:/docker-entrypoint-initdb.d/CreateTable.sql
+      - db_volume:/var/lib/mysql
+volumes:
+  db_volume:
