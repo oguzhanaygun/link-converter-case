@@ -9,7 +9,7 @@
 
     <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
         <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
-            <driverClass>com.mysql.cj.jdbc.Driver</driverClass>
+            <driverClass>com.mysql.jdbc.Driver</driverClass>
              <url>${spring.datasource.url}</url>
              <user>${spring.datasource.username}</user>
              <password>${spring.datasource.password}</password>
