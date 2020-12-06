@@ -18,11 +18,11 @@ public class AppController {
 
 	@GetMapping("/convert/link")
 	public Response convertToUrl(@RequestParam(name = "link") String link) throws TrendyolException {
-		return service.convertToDeepLink(link);
+		return service.convertToUrl(link);
 	}
 
 	@GetMapping("/convert/url")
-	public Response convertToDeepLink(@RequestParam(name = "url") String url) {
-		return service.convertToUrl(url);
+	public Response convertToDeepLink(@RequestParam(name = "url") String url) throws TrendyolException {
+		return service.convertToDeepLink(url);
 	}
 }

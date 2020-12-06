@@ -2,11 +2,12 @@ package com.trendyol.testcase.service;
 
 import org.springframework.stereotype.Service;
 
-import com.trendyol.testcase.exception.NotValidUrlException;
 import com.trendyol.testcase.exception.TrendyolException;
 import com.trendyol.testcase.model.Response;
-import com.trendyol.testcase.model.TrendyolUrl;
-import com.trendyol.testcase.model.TrendyolUrlFactory;
+import com.trendyol.testcase.model.deeplink.TrendyolDeepLink;
+import com.trendyol.testcase.model.deeplink.TrendyolDeepLinkFactory;
+import com.trendyol.testcase.model.url.TrendyolUrl;
+import com.trendyol.testcase.model.url.TrendyolUrlFactory;
 
 @Service
 public class AppService {
@@ -19,9 +20,11 @@ public class AppService {
 		return response;
 	}
 
-	public Response convertToUrl(String link) {
+	public Response convertToUrl(String link) throws TrendyolException {
 		Response response = new Response();
-		response.setLink("test url");
+		TrendyolDeepLink trendyolDeepLink = TrendyolDeepLinkFactory.getDeepLink(link);
+		response.setLink(trendyolDeepLink.convertToDeepLink());
+		response.getMessages().add("ok");
 		return response;
 	}
 
