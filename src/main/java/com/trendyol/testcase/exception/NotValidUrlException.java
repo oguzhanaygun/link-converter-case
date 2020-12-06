@@ -1,6 +1,6 @@
 package com.trendyol.testcase.exception;
 
-public class NotValidUrlException extends Exception {
+public class NotValidUrlException extends TrendyolException {
 
 	public NotValidUrlException() {
 		super();
