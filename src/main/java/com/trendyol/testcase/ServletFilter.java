@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,25 +26,18 @@ public class ServletFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
+
 		try {
-			addXRequestId(req);
-			LOGGER.info("path: {}, method: {}, query {}", req.getRequestURI(), req.getMethod(), req.getQueryString());
-			res.setHeader(X_REQUEST_ID, MDC.get(X_REQUEST_ID));
+			String reqId = UUID.randomUUID().toString();
+			LOGGER.info("path: {}, method: {}, query: {}, id: {}", req.getRequestURI(), req.getMethod(),
+					req.getQueryString(), reqId);
+			res.setHeader(X_REQUEST_ID, reqId);
 			chain.doFilter(request, response);
-			LOGGER.info("statusCode {}, path: {}, method: {}, query {}", res.getStatus(), req.getRequestURI(),
-					req.getMethod(), req.getQueryString());
-			MDC.clear();
+			LOGGER.info("statusCode {}, path: {}, method: {}, query {}, id: {}", res.getStatus(), req.getRequestURI(),
+					req.getMethod(), req.getQueryString(), res.getHeader(X_REQUEST_ID));
+
 		} catch (Exception e) {
 			LOGGER.error("Something went wrong while logging request and response", e);
-		}
-	}
-
-	private void addXRequestId(HttpServletRequest request) {
-		String xRequestId = request.getHeader(X_REQUEST_ID);
-		if (xRequestId == null) {
-			MDC.put(X_REQUEST_ID, UUID.randomUUID().toString());
-		} else {
-			MDC.put(X_REQUEST_ID, xRequestId);
 		}
 	}
 
